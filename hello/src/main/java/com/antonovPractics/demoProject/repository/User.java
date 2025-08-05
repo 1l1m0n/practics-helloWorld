@@ -1,4 +1,6 @@
-package com.antonovproject.hello;
+package com.antonovPractics.demoProject.repository;
+
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,4 +19,6 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
+    private LocalDate birthDate;
+    private Integer age;
 }
