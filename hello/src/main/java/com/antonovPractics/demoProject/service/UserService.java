@@ -3,6 +3,7 @@ package com.antonovPractics.demoProject.service;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,6 +46,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+    public Optional<User> getUser(Long id) {
+        return userRepository.findById(id);
+    }
+
     public Page<User> getUsers(List<String> firstName, List<String> lastName, List<Long> id, Pageable pageable) {
 
         if (firstName != null && !firstName.isEmpty()) {
@@ -56,6 +65,20 @@ public class UserService {
         } else {
             return userRepository.findAll(pageable);
         }
+    }
+
+    public User userUpdate(Long id, String firstName, String lastName) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Użytkownik o id " + id + " nie istnieje"));
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        return userRepository.save(user);
+    }
+
+    public void userDelete(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Użytkownik o id " + id + " nie istnieje"));
+        userRepository.delete(user);
     }
 
     @Transactional
