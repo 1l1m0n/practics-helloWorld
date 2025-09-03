@@ -36,11 +36,14 @@ public class TowarService {
         return towarRepository.save(towar);
     }
     
-    public Towar addTowar(String name, String opis) {
+    public Towar addTowar(String name, String opis, Long kategoriaId) {
         Towar towar = new Towar();
         towar.setName(name);
         towar.setOpis(opis);
+        towar.setDateOfAdd(LocalDate.now());
         towar.setDateOfLastEdit(LocalDateTime.now());
+        Kategoria kategoria = kategoriaRepository.findById(kategoriaId).orElseThrow(() -> new IllegalStateException("Kategoria o id " + kategoriaId + " nie istnieje"));
+        towar.setKategoria(kategoria);
         return towarRepository.save(towar);
     }
 
@@ -79,6 +82,17 @@ public class TowarService {
         //todo zrobic zeby czas wyswietlał sie nie tak szczegołowo
         dbTowar.setDateOfLastEdit(LocalDateTime.now());
         return towarRepository.save(dbTowar);
+    }
+
+    public Towar towarUpdate(Long id, String name, String opis, Long kategoriaId) {
+        Towar towar = towarRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Towar o id " + id + " nie istnieje"));
+        Kategoria kategoria = kategoriaRepository.findById(kategoriaId).orElseThrow(() -> new IllegalStateException("Kategoria o id " + kategoriaId + " nie istnieje"));
+        towar.setName(name);
+        towar.setOpis(opis);
+        towar.setKategoria(kategoria);
+        towar.setDateOfLastEdit(LocalDateTime.now());
+        return towarRepository.save(towar);
     }
 
     public void deleteTowar(Long id) {

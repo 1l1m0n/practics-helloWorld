@@ -13,13 +13,44 @@
 
 		<div class="container mt-5 mb-5">
 			<h1>Dodaj towar</h1>
-            <form action="/towary/addTowar" method="post">
-                <input type="text" name="name" placeholder="Wpisz nazwę towaru" class="form-control"><br>
-                <input type="text" name="opis" placeholder="Wpisz opis towaru" class="form-control"><br>
-                <button type="submit" class="btn btn-success">Dodaj towar</button>
-            </form>
+			<form action="/towary/addTowar" method="post">
+				<input
+					type="text"
+					name="name"
+					placeholder="Wpisz nazwę towaru"
+					class="form-control"
+				/><br />
+				<input
+					type="text"
+					name="opis"
+					placeholder="Wpisz opis towaru"
+					class="form-control"
+				/><br />
+				<div>
+					<label>Wybierz kategorię:</label>
+					<ul>
+						<li th:each="el : ${kategorie}">
+							<input type="radio" name="kategoriaId" th:value="${el.id}" />
+							<span th:text="${el.name}"></span>
+							<div
+								th:replace="this :: kategoriaTreeRadioFragment(${el.podkategoria})"
+							></div>
+						</li>
+					</ul>
+				</div>
+				<button type="submit" class="btn btn-success">Dodaj towar</button>
+			</form>
 
-			
+			<th:block th:fragment="kategoriaTreeRadioFragment(podkategoria)">
+    			<ul th:if="${podkategoria != null and #lists.size(podkategoria) > 0}">
+        			<li th:each="el : ${podkategoria}">
+            			<input type="radio" name="kategoriaId" th:value="${el.id}">
+            			<span th:text="${el.name}"></span>
+            			<div th:replace="this :: kategoriaTreeRadioFragment(${el.podkategoria})"></div>
+        			</li>
+    			</ul>
+		</th:block>
+		
 		</div>
 
 		<div th:insert="blocks/footer :: footer"></div>

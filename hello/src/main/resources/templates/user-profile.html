@@ -14,8 +14,24 @@
 		<div class="container mt-5">
 			<div th:each="el : ${user}">
 				<h3 th:text="${el.firstName} + ' ' + ${el.lastName}"></h3>
-				<p th:text="${el.birthDate}"></p>
-				<p th:text="${el.age}"></p>
+				<p>
+					<strong>Data urodzenia:</strong>
+					<span
+						th:text="${el.birthDate != null ? el.birthDate : 'Brak'}"
+					></span>
+				</p>
+				<p>
+					<strong>Wiek:</strong>
+					<span
+						th:text="${el.countAge() != null ? el.countAge() : 'Brak'}"
+					></span>
+				</p>
+				<p>
+					<strong>Data utworzenia:</strong>
+					<span
+						th:text="${el.dateOfAdd != null ? el.dateOfAdd : 'Brak'}"
+					></span>
+				</p>
 				<a th:href="@{'/user/' + ${el.id} + '/edit'}" class="btn btn-warning"
 					>Edytuj użytkownika</a
 				><br /><br />

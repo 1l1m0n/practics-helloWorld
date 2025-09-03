@@ -1,5 +1,9 @@
 package com.antonovPractics.demoProject.repository;
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,4 +18,7 @@ public class Magazyn {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dateOfAdd;
 }

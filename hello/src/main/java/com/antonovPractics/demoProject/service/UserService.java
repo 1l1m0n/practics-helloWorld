@@ -43,6 +43,16 @@ public class UserService {
     public User addUser(User user) {
 
         user.setAge(Period.between(user.getBirthDate(), LocalDate.now()).getYears());
+        user.setDateOfAdd(LocalDate.now());
+        return userRepository.save(user);
+    }
+
+    public User addUser(String firstName, String lastName, LocalDate birthDate) {
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setBirthDate(birthDate);
+        user.setDateOfAdd(LocalDate.now());
         return userRepository.save(user);
     }
 

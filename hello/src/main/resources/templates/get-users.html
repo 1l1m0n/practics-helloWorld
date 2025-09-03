@@ -14,9 +14,11 @@
 		<div class="container mt-5">
 			<h1>Users</h1>
 
+			<a href="/users/add" class="btn btn-success mb-3">Dodaj usera</a>
+
 			<ul>
-				<li th:each="user : ${users}">
-					<a th:href="@{'/user/' + ${user.id}}" th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
+				<li th:each="el : ${users}">
+					<a th:href="@{'/user/' + ${el.id}}" th:text="${el.firstName} + ' ' + ${el.lastName}"></a>
 				</li>
 			</ul>
 		</div>

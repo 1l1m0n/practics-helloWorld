@@ -11,6 +11,10 @@ import com.antonovPractics.demoProject.repository.KategoriaRepository;
 @Service
 public class KategoriaService {
 
+    public List<Kategoria> getRootKategorie() {
+        return kategoriaRepository.findByKategoriaNadrzednaIsNull();
+    }
+
     @Autowired
     private KategoriaRepository kategoriaRepository;
 

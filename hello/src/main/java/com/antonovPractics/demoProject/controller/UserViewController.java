@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,19 @@ public class UserViewController {
         return "get-users";
     }
 
+    @GetMapping("/users/add")
+    public String addUser(Model model) {
+        model.addAttribute("user", new User());
+        return "add-user";
+    }
+
+    //todo: zmienic pozniej na to jak w dodawaniu towaru
+    @PostMapping("/users/add")
+    public String addUserSubmit(@ModelAttribute User user) {
+        userService.addUser(user);
+        return "redirect:/users";
+    }
+
     @GetMapping("/user/{id}")
     public String userProfile(@PathVariable Long id, Model model) {
 
@@ -49,6 +63,7 @@ public class UserViewController {
         return "user-edit";
     }
 
+    //todo: dodac edycje daty urodzenia
     @PostMapping("/user/{id}/edit")
     public String userUpdate(@PathVariable Long id, @RequestParam String firstName, @RequestParam String lastName, Model model) {
         userService.userUpdate(id, firstName, lastName);
