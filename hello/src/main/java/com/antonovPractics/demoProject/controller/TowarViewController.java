@@ -45,7 +45,6 @@ public class TowarViewController {
         return "redirect:/towary";
     }
     
-    // todo: sprawdzic dlaczego tu jest inaczej od usera
     @GetMapping("/towar/{id}")
     public String towarProfile(@PathVariable Long id, Model model) {
         Towar towar = towarService.getTowar(id);
